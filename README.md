@@ -1,54 +1,36 @@
 # MapMethod
 
-## Идея продукта
+MapMethod turns a savings goal into a map made of rounded square cells. Choose a place, set the target, and fill whole cells as you save. The same SwiftUI app is built for iPhone and Mac.
 
-MapMethod — приложение для iPhone и Mac, которое превращает цель накопления в карту, составленную из клеток. Пользователь откладывает деньги и вручную закрашивает целые клетки; карта показывает прогресс накоплений.
+## MVP
 
-## Основной сценарий
+- Search for a city, district, or country; draw a custom outline; or choose the built-in Earth silhouette.
+- Zoom and pan around the generated map.
+- Set a target and a main cell denomination. The app suggests a starting denomination and automatically adds smaller-value cells for the remainder.
+- Cell area is proportional to its amount. Cells stay whole squares with rounded corners and fit inside the selected outline.
+- Fill or undo whole cells. The app records each action and its date for future history and the planned savings time-lapse.
+- Create multiple maps, see saved amount and percentage, and view the most recently updated map in an iPhone or Mac widget.
+- Sync goal data through the user's private iCloud CloudKit database.
+- Use light depth, shadows, and spring animation when cells change state.
 
-1. Пользователь выбирает географический контур по названию (например, город, район или страну) либо рисует свой контур.
-2. Задаёт сумму цели.
-3. Приложение подбирает номиналы и количество клеток так, чтобы сумма всех клеток равнялась цели.
-4. Приложение строит внутри контура узор из целых квадратных клеток.
-5. Когда пользователь откладывает сумму, соответствующую номиналу клетки, он отмечает клетку целиком.
-6. Карта и прогресс синхронизируются между iPhone и Mac.
+The time-lapse movie is a post-MVP idea. The MVP records the dated cell events needed to make it later.
 
-## Принятые решения
+## Build and run
 
-- Географию можно выбрать поиском или нарисовать произвольный контур.
-- Карта состоит только из целых квадратных клеток с закруглёнными углами. Клетки вместе формируют силуэт территории; крайние клетки не обрезаются.
-- Количество клеток зависит от суммы цели и их номиналов.
-- Если цель не делится на основной номинал, приложение добавляет клетки меньшего размера с меньшим номиналом.
-- Размер клетки пропорционален её номиналу: меньший номинал означает меньшую площадь.
-- Номиналы для клеток подбирает приложение.
-- Клетки отмечаются только целиком; частичное заполнение клетки не поддерживается.
-- Приложения для iPhone и Mac имеют одинаковые функции.
-- Нужна синхронизация карт и прогресса между устройствами.
-- Нужны виджеты, показывающие карту и прогресс. Заполнять клетки из виджета не требуется.
-- Визуальный стиль минималистичный, с деликатными 3D-эффектами и анимациями.
+See [docs/BUILDING.md](docs/BUILDING.md) for Xcode, signing, CloudKit, and widget setup. The project is not published to the App Store; run it directly from Xcode on your own devices.
 
-## Объём MVP
+```sh
+brew install xcodegen
+xcodegen generate
+open MapMethod.xcodeproj
+```
 
-- Создание карты по найденной территории или нарисованному контуру.
-- Настройка суммы цели.
-- Автоматический подбор номиналов и генерация квадратных клеток по силуэту.
-- Ручное заполнение целых клеток и отображение суммы и процента прогресса.
-- Одинаковый основной функционал на iPhone и Mac.
-- Синхронизация между устройствами.
-- Виджеты с картой и прогрессом.
-- Минималистичный интерфейс; 3D-анимации должны оставаться лёгкими и не мешать отметке накоплений.
+Available schemes: `MapMethod-iOS`, `MapMethod-macOS`, `MapMethodWidget-iOS`, and `MapMethodWidget-macOS`.
 
-## Идеи после MVP
+## Map data
 
-### Таймлапс накопления
+- Place search uses Apple's MapKit search.
+- Administrative outlines are looked up from OpenStreetMap through the public Overpass API after the user selects a search result. Responses are cached locally; requests are user-triggered and spaced. OpenStreetMap attribution is shown in the app. See the [Overpass API documentation](https://dev.overpass-api.de/overpass-doc/en/) and the [OpenStreetMap attribution and ODbL information](https://www.openstreetmap.org/copyright).
+- The built-in Earth silhouette comes from Natural Earth's 1:110m land polygons. The dataset is public domain; its source and converter are documented in [Resources/NATURAL_EARTH.md](Resources/NATURAL_EARTH.md).
 
-Когда цель достигнута, приложение сможет создать короткий ролик о ходе накопления: по дням показывать, как заполнялись клетки и росла общая сумма. Ролик должен воспроизводить историю от пустой карты до завершённой и показывать накопленную сумму на каждом этапе.
-
-Чтобы эта функция была возможна, приложение должно сохранять дату заполнения каждой клетки и историю изменений прогресса уже в MVP. Создание и экспорт ролика в MVP не входят.
-
-## Вопросы для дальнейшего проектирования
-
-- Как приложение упорядочивает клетки на карте, чтобы силуэт оставался узнаваемым и клетки было удобно заполнять?
-- Какие действия доступны при изменении суммы цели после начала накопления?
-- Как пользователь выбирает следующую клетку для заполнения, если на карте есть несколько номиналов?
-- Какие варианты стиля и движения нужны для 3D-анимации?
+Place search needs an internet connection. If a selected place has no usable boundary, the app offers the custom drawing flow.

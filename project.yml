@@ -1,0 +1,126 @@
+name: MapMethod
+options:
+  bundleIdPrefix: com.gwinell
+  deploymentTarget:
+    iOS: "17.0"
+    macOS: "14.0"
+  groupSortPosition: top
+  generateEmptyDirectories: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    DEVELOPMENT_TEAM: ""
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+targets:
+  MapMethod-iOS:
+    type: application
+    platform: iOS
+    sources:
+      - Sources/Shared
+      - Sources/App
+      - path: Resources/world-outline.json
+        buildPhase: resources
+    dependencies:
+      - target: MapMethodWidget-iOS
+        embed: true
+    info:
+      path: Configuration/App-iOS-Info.plist
+      properties:
+        CFBundleDisplayName: MapMethod
+        UIApplicationSupportsIndirectInputEvents: true
+        UIBackgroundModes:
+          - remote-notification
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    entitlements:
+      path: Configuration/App-iOS.entitlements
+      properties:
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.com.gwinell.mapmethod
+        com.apple.developer.icloud-services:
+          - CloudKit
+        com.apple.security.application-groups:
+          - group.com.gwinell.mapmethod
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.gwinell.mapmethod.ios
+        TARGETED_DEVICE_FAMILY: "1,2"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+  MapMethod-macOS:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/Shared
+      - Sources/App
+      - path: Resources/world-outline.json
+        buildPhase: resources
+    dependencies:
+      - target: MapMethodWidget-macOS
+        embed: true
+    entitlements:
+      path: Configuration/App-macOS.entitlements
+      properties:
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.com.gwinell.mapmethod
+        com.apple.developer.icloud-services:
+          - CloudKit
+        com.apple.security.application-groups:
+          - group.com.gwinell.mapmethod
+        com.apple.security.app-sandbox: true
+        com.apple.security.network.client: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.gwinell.mapmethod.macos
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: MapMethod
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.finance
+  MapMethodWidget-iOS:
+    type: app-extension
+    platform: iOS
+    sources:
+      - Sources/Shared/WidgetSnapshot.swift
+      - Sources/Widget
+    entitlements:
+      path: Configuration/Widget-iOS.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.gwinell.mapmethod
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.gwinell.mapmethod.ios.widget
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        APPLICATION_EXTENSION_API_ONLY: YES
+        SKIP_INSTALL: YES
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSExtension_NSExtensionPointIdentifier: com.apple.widgetkit-extension
+  MapMethodWidget-macOS:
+    type: app-extension
+    platform: macOS
+    sources:
+      - Sources/Shared/WidgetSnapshot.swift
+      - Sources/Widget
+    entitlements:
+      path: Configuration/Widget-macOS.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.gwinell.mapmethod
+        com.apple.security.app-sandbox: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.gwinell.mapmethod.macos.widget
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        APPLICATION_EXTENSION_API_ONLY: YES
+        SKIP_INSTALL: YES
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSExtension_NSExtensionPointIdentifier: com.apple.widgetkit-extension
