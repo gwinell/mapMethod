@@ -25,6 +25,8 @@ Register the container and App Group for your Apple Developer team, assign both 
 
 The widget extensions share the App Group with their host app and read a compact local snapshot. Add the `MapMethodWidget-iOS` or `MapMethodWidget-macOS` widget from the system's widget gallery.
 
+Each savings map keeps its own ISO currency. Changing a map's currency keeps the same numeric amounts, adjusts minor units, and does not apply an exchange rate. Values round to the precision supported by the selected currency.
+
 Unsigned local builds and iOS Simulator builds use local SwiftData storage because they do not carry the required iCloud entitlement. To test cross-device sync, run signed builds with the registered container and App Group.
 
 ## Boundary search

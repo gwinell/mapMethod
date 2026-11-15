@@ -7,6 +7,7 @@ MapMethod turns a savings goal into a map made of rounded square cells. Choose a
 - Search for a city, district, or country; draw a custom outline; or choose the built-in Earth silhouette.
 - Zoom and pan around the generated map.
 - Set a target and a main cell denomination. The app suggests a starting denomination and automatically adds smaller-value cells for the remainder.
+- Choose from ISO currencies for each goal or change a goal's currency later. Changing currency keeps the numeric amount and does not apply an exchange rate; values are rounded to the new currency's smallest unit.
 - Cell area is proportional to its amount. Cells stay whole squares with rounded corners and fit inside the selected outline.
 - Fill or undo whole cells. The app records each action and its date for future history and the planned savings time-lapse.
 - Create multiple maps, see saved amount and percentage, and view the most recently updated map in an iPhone or Mac widget.
@@ -34,3 +35,5 @@ Available schemes: `MapMethod-iOS`, `MapMethod-macOS`, `MapMethodWidget-iOS`, an
 - The built-in Earth silhouette comes from Natural Earth's 1:110m land polygons. The dataset is public domain; its source and converter are documented in [Resources/NATURAL_EARTH.md](Resources/NATURAL_EARTH.md).
 
 Place search needs an internet connection. If a selected place has no usable boundary, the app offers the custom drawing flow.
+
+Interface polish principles adapted from [Unslop by Damir Sokolovsky](https://heydamir.design/unslop), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

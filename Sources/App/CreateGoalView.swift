@@ -22,7 +22,7 @@ struct CreateGoalView: View {
     @State private var targetText = "100000"
     @State private var baseCellText = ""
     @State private var titleManuallyEdited = false
-    @State private var currencyCode = Locale.current.currency?.identifier ?? "USD"
+    @State private var currencyCode = CurrencyOption.defaultCode
     @State private var isSearching = false
     @State private var isLoadingOutline = false
     @State private var errorMessage: String?
@@ -33,7 +33,7 @@ struct CreateGoalView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 22) {
+                VStack(alignment: .leading, spacing: 24) {
                     intro
                     Picker("Источник контура", selection: $mode) {
                         ForEach(OutlineMode.allCases) { option in
@@ -81,6 +81,10 @@ struct CreateGoalView: View {
                 errorMessage = nil
                 if !baseCellManuallyEdited { updateSuggestedBaseCell() }
             }
+            .onChange(of: currencyCode) { _, _ in
+                errorMessage = nil
+                if !baseCellManuallyEdited { updateSuggestedBaseCell() }
+            }
             .onChange(of: mode) { _, newMode in
                 if newMode == .draw {
                     selectedPlace = nil
@@ -94,10 +98,10 @@ struct CreateGoalView: View {
     }
 
     private var intro: some View {
-        VStack(alignment: .leading, spacing: 7) {
-            Text("Накопления, которые видно")
-                .font(.system(size: 27, weight: .semibold, design: .rounded))
-            Text("Выберите контур и сумму цели. Приложение превратит её в карту клеток.")
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Карта для вашей цели")
+                .font(.system(size: 28, weight: .medium))
+            Text("Выберите контур, валюту и сумму. Приложение разложит цель на клетки.")
                 .foregroundStyle(.secondary)
         }
     }
@@ -112,7 +116,7 @@ struct CreateGoalView: View {
             }
             .buttonStyle(.bordered)
 
-            HStack(spacing: 10) {
+            HStack(spacing: 12) {
                 TextField("Город, район или страна", text: $searchText)
                     .textFieldStyle(.roundedBorder)
                     .onSubmit { Task { await searchPlaces() } }
@@ -132,7 +136,7 @@ struct CreateGoalView: View {
                         } label: {
                             HStack(spacing: 12) {
                                 Image(systemName: "mappin.and.ellipse")
-                                    .foregroundStyle(Color.accentColor)
+                                    .foregroundStyle(MapMethodPalette.accent)
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(result.name).fontWeight(.medium)
                                     if !result.subtitle.isEmpty {
@@ -145,14 +149,14 @@ struct CreateGoalView: View {
                                 }
                             }
                             .contentShape(Rectangle())
-                            .padding(.vertical, 9)
+                            .padding(.vertical, 8)
                         }
                         .buttonStyle(.plain)
                         if result.id != searchResults.last?.id { Divider() }
                     }
                 }
-                .padding(.horizontal, 12)
-                .background(Color.primary.opacity(0.035), in: RoundedRectangle(cornerRadius: 14))
+                .padding(12)
+                .background(MapMethodPalette.surface, in: RoundedRectangle(cornerRadius: 12))
             }
             Text("Поиск мест использует Apple Maps. Контуры предоставлены OpenStreetMap contributors (ODbL).")
                 .font(.caption)
@@ -161,10 +165,10 @@ struct CreateGoalView: View {
     }
 
     private var drawSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             FreehandOutlineEditor(points: $drawnPoints, canvasAspectRatio: $drawingAspectRatio)
             HStack {
-                Text("Обведите территорию одним движением.")
+                Text("Обведите территорию одним движением")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()
@@ -188,7 +192,7 @@ struct CreateGoalView: View {
         HStack(spacing: 16) {
             OutlinePreview(outline: value)
                 .frame(width: 120, height: 90)
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(title.isEmpty ? value.sourceName : title)
                     .font(.headline)
                 Text(value.source)
@@ -204,32 +208,46 @@ struct CreateGoalView: View {
             if isLoadingOutline { ProgressView() }
         }
         .padding(12)
-        .background(Color.primary.opacity(0.035), in: RoundedRectangle(cornerRadius: 18))
+        .background(MapMethodPalette.surface, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var goalSettings: some View {
-        VStack(alignment: .leading, spacing: 13) {
-            Text("Цель накопления").font(.headline)
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("Цель накопления").font(.headline)
+                Spacer()
+                CurrencyPickerButton(selection: $currencyCode)
+            }
             TextField("Название карты", text: Binding(
                 get: { title },
                 set: { title = $0; titleManuallyEdited = true }
             ))
                 .textFieldStyle(.roundedBorder)
-            HStack(alignment: .top, spacing: 12) {
-                amountField("Сумма цели", text: $targetText)
-                amountField("Основная клетка (\(currencyCode))", text: Binding(
-                    get: { baseCellText },
-                    set: { baseCellText = $0; baseCellManuallyEdited = true }
-                ))
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .top, spacing: 16) {
+                    amountField("Сумма цели · \(currencyCode)", text: $targetText)
+                    amountField("Основная клетка · \(currencyCode)", text: baseCellBinding)
+                }
+                VStack(spacing: 12) {
+                    amountField("Сумма цели · \(currencyCode)", text: $targetText)
+                    amountField("Основная клетка · \(currencyCode)", text: baseCellBinding)
+                }
             }
-            Text("Номинал основной клетки предложен автоматически. Остаток приложение разложит на меньшие клетки.")
+            Text("Валюта задаётся отдельно для каждой карты. Основной номинал приложение предложит автоматически.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
     }
 
+    private var baseCellBinding: Binding<String> {
+        Binding(
+            get: { baseCellText },
+            set: { baseCellText = $0; baseCellManuallyEdited = true }
+        )
+    }
+
     private func amountField(_ label: String, text: Binding<String>) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(label).font(.subheadline).foregroundStyle(.secondary)
             TextField("0", text: text)
 #if os(iOS)
@@ -244,9 +262,9 @@ struct CreateGoalView: View {
         Group {
             if let target = parsedTarget, let base = parsedBase {
                 let values = DenominationPlanner.cellValues(target: target, baseCell: base, currencyCode: currencyCode)
-                HStack(spacing: 10) {
+                HStack(spacing: 12) {
                     Image(systemName: "square.grid.3x3.square")
-                        .foregroundStyle(Color.accentColor)
+                        .foregroundStyle(MapMethodPalette.accent)
                     Text(values.isEmpty ? "Слишком много клеток. Увеличьте номинал." : "Будет создано клеток: \(values.count)")
                     Spacer()
                     if !values.isEmpty {
@@ -256,7 +274,7 @@ struct CreateGoalView: View {
                 }
                 .font(.subheadline)
                 .padding(12)
-                .background(Color.accentColor.opacity(0.08), in: RoundedRectangle(cornerRadius: 14))
+                .background(MapMethodPalette.quietSurface, in: RoundedRectangle(cornerRadius: 12))
             }
         }
     }

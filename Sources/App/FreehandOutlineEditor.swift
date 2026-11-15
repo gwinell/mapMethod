@@ -8,21 +8,21 @@ struct FreehandOutlineEditor: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .fill(Color.primary.opacity(0.035))
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(MapMethodPalette.surface)
                 Canvas { context, size in
                     if points.count > 1 {
                         var path = Path()
                         path.move(to: pixel(points[0], in: size))
                         for point in points.dropFirst() { path.addLine(to: pixel(point, in: size)) }
                         if points.count > 2 { path.closeSubpath() }
-                        context.fill(path, with: .color(Color.accentColor.opacity(0.14)))
-                        context.stroke(path, with: .color(Color.accentColor), lineWidth: 2.5)
+                        context.fill(path, with: .color(MapMethodPalette.accent.opacity(0.12)))
+                        context.stroke(path, with: .color(MapMethodPalette.accent), lineWidth: 2)
                     }
                     for point in points {
                         let center = pixel(point, in: size)
                         let dot = CGRect(x: center.x - 3, y: center.y - 3, width: 6, height: 6)
-                        context.fill(Path(ellipseIn: dot), with: .color(Color.accentColor))
+                        context.fill(Path(ellipseIn: dot), with: .color(MapMethodPalette.accent))
                     }
                 }
                 if points.isEmpty {
@@ -35,7 +35,7 @@ struct FreehandOutlineEditor: View {
                     .allowsHitTesting(false)
                 }
             }
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(Rectangle())
             .gesture(
                 DragGesture(minimumDistance: 0)
@@ -61,7 +61,7 @@ struct FreehandOutlineEditor: View {
             }
         }
         .frame(height: 270)
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.primary.opacity(0.08), lineWidth: 1))
+        .overlay(RoundedRectangle(cornerRadius: 16).stroke(MapMethodPalette.hairline, lineWidth: 1))
     }
 
     private func pixel(_ point: MapPoint, in size: CGSize) -> CGPoint {

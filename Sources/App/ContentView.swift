@@ -7,7 +7,7 @@ struct ContentView: View {
     @Query(sort: \SavingsGoal.updatedAt, order: .reverse) private var goals: [SavingsGoal]
     @State private var showingCreate = false
 
-    private let columns = [GridItem(.adaptive(minimum: 250), spacing: 16)]
+    private let columns = [GridItem(.adaptive(minimum: 256), spacing: 16)]
 
     var body: some View {
         NavigationStack {
@@ -41,8 +41,9 @@ struct ContentView: View {
                 .padding(24)
                 .frame(maxWidth: .infinity)
             }
-            .background(Color.primary.opacity(0.025))
+            .background(MapMethodPalette.quietSurface)
             .navigationTitle("MapMethod")
+            .tint(MapMethodPalette.accent)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -61,9 +62,9 @@ struct ContentView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Собирайте карту вместе с накоплениями.")
-                .font(.system(size: 28, weight: .semibold, design: .rounded))
-            Text("Выбирайте места, ставьте цель и отмечайте клетки по мере того, как откладываете деньги.")
+            Text("Накопления становятся картой")
+                .font(.system(size: 28, weight: .medium))
+            Text("Выберите место и отмечайте целые клетки по мере пополнения цели.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -71,30 +72,29 @@ struct ContentView: View {
     }
 
     private var emptyState: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 16) {
             Image(systemName: "map.fill")
-                .font(.system(size: 38, weight: .light))
-                .foregroundStyle(Color.accentColor)
-            Text("Ваша первая карта ждёт")
-                .font(.title3.weight(.semibold))
+                .font(.system(size: 32, weight: .regular))
+                .foregroundStyle(MapMethodPalette.accent)
+            Text("Пока нет карт накоплений")
+                .font(.title3.weight(.medium))
             Text("Найдите город или нарисуйте собственный контур.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
             Button("Создать карту", systemImage: "plus") { showingCreate = true }
                 .buttonStyle(.borderedProminent)
-                .padding(.top, 3)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 45)
-        .background(Color.primary.opacity(0.035), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .padding(.vertical, 40)
+        .background(MapMethodPalette.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 
     private var syncNote: some View {
-        Label("Карты синхронизируются через iCloud, если вы вошли в один Apple Account на обоих устройствах.", systemImage: "icloud")
+        Label("После настройки iCloud карты будут доступны на iPhone и Mac.", systemImage: "icloud")
             .font(.caption)
             .foregroundStyle(.secondary)
             .fixedSize(horizontal: false, vertical: true)
-            .padding(.top, 5)
+            .padding(.top, 8)
     }
 
     private func refreshWidgets() {
@@ -135,9 +135,9 @@ private struct GoalCard: View {
     private var document: SavingsGoalDocument? { goal.document }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 13) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 3) {
+                VStack(alignment: .leading, spacing: 4) {
                     Text(goal.title)
                         .font(.headline)
                         .lineLimit(1)
@@ -157,29 +157,30 @@ private struct GoalCard: View {
                     OutlinePreview(outline: document.outline)
                     MiniatureCells(document: document)
                 }
-                .frame(height: 120)
+                .frame(height: 136)
                 .frame(maxWidth: .infinity)
                 .clipped()
 
-                VStack(alignment: .leading, spacing: 7) {
+                VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text(CurrencyAmount.format(document.savedMinorUnits, currencyCode: document.currencyCode))
-                            .font(.subheadline.weight(.semibold).monospacedDigit())
+                            .font(.subheadline.weight(.medium).monospacedDigit())
+                            .foregroundStyle(MapMethodPalette.accent)
                         Spacer()
                         Text("\(Int(document.progress * 100))%")
                             .font(.caption.weight(.medium).monospacedDigit())
                             .foregroundStyle(.secondary)
                     }
-                    ProgressView(value: document.progress).tint(Color.accentColor)
-                    Text("цель \(CurrencyAmount.format(document.targetMinorUnits, currencyCode: document.currencyCode))")
+                    ProgressView(value: document.progress).tint(MapMethodPalette.accent)
+                    Text("Цель: \(CurrencyAmount.format(document.targetMinorUnits, currencyCode: document.currencyCode))")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
             }
         }
-        .padding(17)
-        .background(Color.primary.opacity(0.035), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 22).stroke(Color.primary.opacity(0.05), lineWidth: 1))
+        .padding(20)
+        .background(MapMethodPalette.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 16).stroke(MapMethodPalette.hairline, lineWidth: 1))
     }
 }
 
@@ -195,7 +196,7 @@ private struct MiniatureCells: View {
                     guard rect.width > 1 else { continue }
                     let radius = min(rect.width * 0.22, 5)
                     let path = Path(roundedRect: rect.insetBy(dx: 0.6, dy: 0.6), cornerSize: CGSize(width: radius, height: radius))
-                    context.fill(path, with: .color(cell.filledAt == nil ? Color.primary.opacity(0.16) : Color.accentColor))
+                    context.fill(path, with: .color(cell.filledAt == nil ? MapMethodPalette.emptyCell : MapMethodPalette.accent))
                 }
             }
         }

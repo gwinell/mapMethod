@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0039DD25FE19E40452B827E2 /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AD1348A8BD17A8A8AE2A41 /* PlaceSearchService.swift */; };
 		0C9C3874613D4935DA808655 /* FreehandOutlineEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83582B8B5332E73CA232FF99 /* FreehandOutlineEditor.swift */; };
+		0D44BD18B75267C38268CE4E /* CurrencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */; };
 		0FEA8F7B8E2C98C866C14DBD /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */; };
 		13F932A1AC2C77A5F1DE33E1 /* PolygonGridGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C245E355265ACDE9AA86D2E /* PolygonGridGenerator.swift */; };
 		1B982B7FCF34A67ED9C58791 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1CE0AFF28D172EBC18C36 /* ContentView.swift */; };
@@ -19,18 +20,23 @@
 		39345BDF743D9DC8218F199E /* SavingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D91A970B23E3546E71909E /* SavingsModels.swift */; };
 		53B4D1DBBF4D079EF5EBBF0C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1CE0AFF28D172EBC18C36 /* ContentView.swift */; };
 		64CC833CD134B43FC24723F9 /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A0679005019DCBB10FA /* GoalDetailView.swift */; };
+		6B55BAF30BE67535C48A5AF9 /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
 		76965B93B126EF0748B99396 /* MapMethodWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75576AE5B72A018D97F9387 /* MapMethodWidget.swift */; };
 		76F0415068209A4E8E16615B /* world-outline.json in Resources */ = {isa = PBXBuildFile; fileRef = 74879C5E240541BA8E6824E9 /* world-outline.json */; };
 		77313033634C08A63321E93C /* SavingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D91A970B23E3546E71909E /* SavingsModels.swift */; };
 		78A2267ECC78F61A7F36A037 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */; };
 		8DF067DC4CE9801D445C48AB /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */; };
+		90602FB236169869829CEEC8 /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
 		9F350E8675C1FCB4EBE73D19 /* MapMethodWidget-iOS.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C3C2D11484D5F2DF51E0D5A7 /* MapMethodWidget-iOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AAC396DDCB5B190EC6A5D8A0 /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A0679005019DCBB10FA /* GoalDetailView.swift */; };
 		AB43CB4ECCFF280155151330 /* world-outline.json in Resources */ = {isa = PBXBuildFile; fileRef = 74879C5E240541BA8E6824E9 /* world-outline.json */; };
 		AFF6DFB1E2AB38F1338A48A8 /* SavingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209A84500756A624AEC98F9 /* SavingsMapView.swift */; };
+		BF56B95991DA970C09FAD27E /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
 		CB4C6B8794AE01BA746C4833 /* MapMethodWidget-macOS.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E4E75714313A3A948FCEFABD /* MapMethodWidget-macOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D447992CD85409F6AF9BAEA3 /* CurrencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */; };
 		E1C18C44E3E8D81BCCD37B33 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */; };
 		E6814CB83C5BA6556F3D73F2 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */; };
+		EC4C110F0BFF54680E2A299C /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
 		ECF9E1981AD35AEE18F79707 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */; };
 		ED0E8C4C265EA962815904AF /* MapMethodWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75576AE5B72A018D97F9387 /* MapMethodWidget.swift */; };
 		F1A56EAB88C7611A19455087 /* PolygonGridGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C245E355265ACDE9AA86D2E /* PolygonGridGenerator.swift */; };
@@ -82,8 +88,10 @@
 /* Begin PBXFileReference section */
 		11AD1348A8BD17A8A8AE2A41 /* PlaceSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchService.swift; sourceTree = "<group>"; };
 		22879108F1ACF48E8C1851EA /* MapMethod-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "MapMethod-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMethodStyle.swift; sourceTree = "<group>"; };
 		35A1CE0AFF28D172EBC18C36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3C245E355265ACDE9AA86D2E /* PolygonGridGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonGridGenerator.swift; sourceTree = "<group>"; };
+		67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPicker.swift; sourceTree = "<group>"; };
 		7477F2C5F3E643A77D8D52A2 /* MapMethod-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MapMethod-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74879C5E240541BA8E6824E9 /* world-outline.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "world-outline.json"; sourceTree = "<group>"; };
 		83582B8B5332E73CA232FF99 /* FreehandOutlineEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreehandOutlineEditor.swift; sourceTree = "<group>"; };
@@ -115,6 +123,7 @@
 			children = (
 				35A1CE0AFF28D172EBC18C36 /* ContentView.swift */,
 				B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */,
+				67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */,
 				83582B8B5332E73CA232FF99 /* FreehandOutlineEditor.swift */,
 				F8274A0679005019DCBB10FA /* GoalDetailView.swift */,
 				BA4D808233304D0B81C37BAF /* MapMethodApp.swift */,
@@ -136,6 +145,7 @@
 		BC1483EC244A193014BC2BE8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */,
 				3C245E355265ACDE9AA86D2E /* PolygonGridGenerator.swift */,
 				F2D91A970B23E3546E71909E /* SavingsModels.swift */,
 				ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */,
@@ -312,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF56B95991DA970C09FAD27E /* MapMethodStyle.swift in Sources */,
 				76965B93B126EF0748B99396 /* MapMethodWidget.swift in Sources */,
 				ECF9E1981AD35AEE18F79707 /* WidgetSnapshot.swift in Sources */,
 			);
@@ -321,6 +332,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B55BAF30BE67535C48A5AF9 /* MapMethodStyle.swift in Sources */,
 				ED0E8C4C265EA962815904AF /* MapMethodWidget.swift in Sources */,
 				78A2267ECC78F61A7F36A037 /* WidgetSnapshot.swift in Sources */,
 			);
@@ -332,9 +344,11 @@
 			files = (
 				1B982B7FCF34A67ED9C58791 /* ContentView.swift in Sources */,
 				E1C18C44E3E8D81BCCD37B33 /* CreateGoalView.swift in Sources */,
+				0D44BD18B75267C38268CE4E /* CurrencyPicker.swift in Sources */,
 				269954A013B9178392BCC09F /* FreehandOutlineEditor.swift in Sources */,
 				64CC833CD134B43FC24723F9 /* GoalDetailView.swift in Sources */,
 				F37F22CC606927497038874D /* MapMethodApp.swift in Sources */,
+				90602FB236169869829CEEC8 /* MapMethodStyle.swift in Sources */,
 				0039DD25FE19E40452B827E2 /* PlaceSearchService.swift in Sources */,
 				F1A56EAB88C7611A19455087 /* PolygonGridGenerator.swift in Sources */,
 				AFF6DFB1E2AB38F1338A48A8 /* SavingsMapView.swift in Sources */,
@@ -349,9 +363,11 @@
 			files = (
 				53B4D1DBBF4D079EF5EBBF0C /* ContentView.swift in Sources */,
 				E6814CB83C5BA6556F3D73F2 /* CreateGoalView.swift in Sources */,
+				D447992CD85409F6AF9BAEA3 /* CurrencyPicker.swift in Sources */,
 				0C9C3874613D4935DA808655 /* FreehandOutlineEditor.swift in Sources */,
 				AAC396DDCB5B190EC6A5D8A0 /* GoalDetailView.swift in Sources */,
 				2649DE1DD665236B8D903F6A /* MapMethodApp.swift in Sources */,
+				EC4C110F0BFF54680E2A299C /* MapMethodStyle.swift in Sources */,
 				2E72B0BE60B51AB9B1671183 /* PlaceSearchService.swift in Sources */,
 				13F932A1AC2C77A5F1DE33E1 /* PolygonGridGenerator.swift in Sources */,
 				38E6A8A635EB61CA1C1989B3 /* SavingsMapView.swift in Sources */,

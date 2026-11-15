@@ -89,6 +89,7 @@ targets:
     platform: iOS
     sources:
       - Sources/Shared/WidgetSnapshot.swift
+      - Sources/Shared/MapMethodStyle.swift
       - Sources/Widget
     entitlements:
       path: Configuration/Widget-iOS.entitlements
@@ -109,6 +110,7 @@ targets:
     platform: macOS
     sources:
       - Sources/Shared/WidgetSnapshot.swift
+      - Sources/Shared/MapMethodStyle.swift
       - Sources/Widget
     entitlements:
       path: Configuration/Widget-macOS.entitlements

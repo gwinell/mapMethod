@@ -222,6 +222,17 @@ final class SavingsGoal {
         updatedAt = date
     }
 
+    func update(document: SavingsGoalDocument) {
+        title = document.title
+        targetMinorUnits = document.targetMinorUnits
+        baseCellMinorUnits = document.baseCellMinorUnits
+        currencyCode = document.currencyCode
+        outlineJSON = Self.encode(document.outline) ?? outlineJSON
+        cellsJSON = Self.encode(document.cells) ?? cellsJSON
+        eventsJSON = Self.encode(document.events) ?? eventsJSON
+        updatedAt = document.updatedAt
+    }
+
     private static func encode<Value: Encodable>(_ value: Value) -> String? {
         guard let data = try? JSONEncoder().encode(value) else { return nil }
         return String(data: data, encoding: .utf8)
@@ -266,6 +277,16 @@ enum CurrencyAmount {
         return formatter.string(from: NSDecimalNumber(decimal: amount)) ?? "\(minorUnits) \(currencyCode)"
     }
 
+    static func convertNumericValue(_ minorUnits: Int64, from oldCode: String, to newCode: String) -> Int64 {
+        guard oldCode != newCode else { return minorUnits }
+        let oldFactor = Decimal(factor(for: oldCode))
+        let newFactor = Decimal(factor(for: newCode))
+        var scaled = Decimal(minorUnits) * newFactor / oldFactor
+        var rounded = Decimal()
+        NSDecimalRound(&rounded, &scaled, 0, .plain)
+        return NSDecimalNumber(decimal: rounded).int64Value
+    }
+
     static func suggestedBaseCellValue(target: Int64, currencyCode: String) -> Int64 {
         guard target > 1 else { return max(1, target) }
         let unit = factor(for: currencyCode)
@@ -281,6 +302,44 @@ enum CurrencyAmount {
             power *= 10
         }
         return candidates.min(by: { abs($0 - desired) < abs($1 - desired) }) ?? desired
+    }
+}
+
+extension SavingsGoalDocument {
+    func changingCurrency(to newCode: String, at date: Date = .now) -> SavingsGoalDocument {
+        guard currencyCode != newCode else { return self }
+
+        let updatedCells = cells.map { cell in
+            var updated = cell
+            let convertedValue = max(1, CurrencyAmount.convertNumericValue(cell.valueMinorUnits, from: currencyCode, to: newCode))
+            if cell.valueMinorUnits > 0 {
+                updated.side *= sqrt(Double(convertedValue) / Double(cell.valueMinorUnits))
+            }
+            updated.valueMinorUnits = convertedValue
+            return updated
+        }
+        let target = updatedCells.isEmpty
+            ? max(1, CurrencyAmount.convertNumericValue(targetMinorUnits, from: currencyCode, to: newCode))
+            : updatedCells.reduce(Int64.zero) { $0 + $1.valueMinorUnits }
+        let valuesByCellID = Dictionary(uniqueKeysWithValues: updatedCells.map { ($0.id, $0.valueMinorUnits) })
+        let updatedEvents = events.map { event in
+            var updated = event
+            updated.valueMinorUnits = valuesByCellID[event.cellID] ?? CurrencyAmount.convertNumericValue(event.valueMinorUnits, from: currencyCode, to: newCode)
+            return updated
+        }
+
+        return SavingsGoalDocument(
+            id: id,
+            title: title,
+            targetMinorUnits: target,
+            baseCellMinorUnits: max(1, CurrencyAmount.convertNumericValue(baseCellMinorUnits, from: currencyCode, to: newCode)),
+            currencyCode: newCode,
+            outline: outline,
+            cells: updatedCells,
+            events: updatedEvents,
+            createdAt: createdAt,
+            updatedAt: date
+        )
     }
 }
 

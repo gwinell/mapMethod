@@ -35,7 +35,7 @@ struct SavingsMapView: View {
 
                 if zoom > 1 || abs(pan.width) > 1 || abs(pan.height) > 1 {
                     Button {
-                        withAnimation(.spring(response: 0.38, dampingFraction: 0.8)) {
+                        withAnimation(.easeOut(duration: 0.18)) {
                             zoom = 1
                             zoomAtGestureStart = 1
                             pan = .zero
@@ -44,8 +44,8 @@ struct SavingsMapView: View {
                     } label: {
                         Label("Сбросить масштаб", systemImage: "arrow.up.left.and.arrow.down.right")
                             .font(.caption.weight(.medium))
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 7)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
                             .background(.regularMaterial, in: Capsule())
                     }
                     .buttonStyle(.plain)
@@ -95,29 +95,16 @@ private struct MapTile: View {
             .fill(fill)
             .overlay {
                 RoundedRectangle(cornerRadius: min(max(side * 0.2, 2), 12), style: .continuous)
-                    .strokeBorder(isFilled ? Color.white.opacity(0.28) : Color.primary.opacity(0.08), lineWidth: 0.8)
+                    .strokeBorder(Color.primary.opacity(isFilled ? 0.08 : 0.06), lineWidth: 0.8)
             }
-            .shadow(color: isFilled ? Color.accentColor.opacity(0.24) : .black.opacity(0.05), radius: isFilled ? 4 : 1, y: isFilled ? 2 : 1)
             .frame(width: max(4, side - 1.5), height: max(4, side - 1.5))
-            .scaleEffect(isFilled ? 1 : 0.94)
-            .rotation3DEffect(.degrees(isFilled ? -4 : 0), axis: (x: 1, y: 0, z: 0), perspective: 0.6)
-            .animation(.spring(response: 0.42, dampingFraction: 0.64), value: isFilled)
+            .scaleEffect(isFilled ? 1 : 0.97)
+            .rotation3DEffect(.degrees(isFilled ? -2 : 0), axis: (x: 1, y: 0, z: 0), perspective: 0.6)
+            .animation(.easeOut(duration: 0.18), value: isFilled)
     }
 
-    private var fill: LinearGradient {
-        if isFilled {
-            LinearGradient(
-                colors: [Color.accentColor.opacity(0.82), Color.accentColor],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        } else {
-            LinearGradient(
-                colors: [Color.primary.opacity(0.11), Color.primary.opacity(0.055)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        }
+    private var fill: Color {
+        isFilled ? MapMethodPalette.accent : MapMethodPalette.emptyCell
     }
 }
 
@@ -165,8 +152,8 @@ struct OutlinePreview: View {
                     for point in ring.points.dropFirst() { path.addLine(to: projection.point(for: point)) }
                     path.closeSubpath()
                 }
-                context.fill(path, with: .color(Color.accentColor.opacity(0.16)), style: FillStyle(eoFill: true))
-                context.stroke(path, with: .color(Color.accentColor.opacity(0.72)), lineWidth: 1.5)
+                context.fill(path, with: .color(MapMethodPalette.accent.opacity(0.12)), style: FillStyle(eoFill: true))
+                context.stroke(path, with: .color(MapMethodPalette.accent.opacity(0.7)), lineWidth: 1.5)
             }
         }
     }

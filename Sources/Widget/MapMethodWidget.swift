@@ -28,7 +28,7 @@ struct MapMethodWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: MapMethodWidgetProvider()) { entry in
             MapMethodWidgetView(goal: entry.goal)
-                .containerBackground(Color.primary.opacity(0.035), for: .widget)
+                .containerBackground(MapMethodPalette.quietSurface, for: .widget)
         }
         .configurationDisplayName("Карта накоплений")
         .description("Показывает клеточную карту и прогресс цели.")
@@ -68,7 +68,7 @@ private struct MapMethodWidgetView: View {
     private func content(_ goal: WidgetGoalSnapshot) -> some View {
         switch family {
         case .systemSmall:
-            VStack(alignment: .leading, spacing: 7) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(goal.title).font(.caption.weight(.semibold)).lineLimit(1)
                 WidgetMapArtwork(goal: goal)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -76,24 +76,24 @@ private struct MapMethodWidgetView: View {
             }
             .padding(4)
         case .systemLarge:
-            VStack(alignment: .leading, spacing: 11) {
+            VStack(alignment: .leading, spacing: 12) {
                 titleAndAmount(goal)
                 WidgetMapArtwork(goal: goal)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 progress(goal)
             }
-            .padding(7)
+            .padding(8)
         default:
-            HStack(spacing: 14) {
+            HStack(spacing: 16) {
                 WidgetMapArtwork(goal: goal)
                     .frame(width: 110)
-                VStack(alignment: .leading, spacing: 9) {
+                VStack(alignment: .leading, spacing: 8) {
                     titleAndAmount(goal)
                     progress(goal)
                 }
                 Spacer(minLength: 0)
             }
-            .padding(7)
+            .padding(8)
         }
     }
 
@@ -111,8 +111,8 @@ private struct MapMethodWidgetView: View {
     }
 
     private func progress(_ goal: WidgetGoalSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 5) {
-            ProgressView(value: goal.progress).tint(Color.accentColor)
+        VStack(alignment: .leading, spacing: 4) {
+            ProgressView(value: goal.progress).tint(MapMethodPalette.accent)
             HStack {
                 Text("\(Int(goal.progress * 100))%")
                 Spacer()
@@ -146,7 +146,7 @@ private struct WidgetMapArtwork: View {
                     guard rect.width > 1 else { continue }
                     let radius = min(rect.width * 0.2, 7)
                     let path = Path(roundedRect: rect.insetBy(dx: 0.7, dy: 0.7), cornerSize: CGSize(width: radius, height: radius))
-                    context.fill(path, with: .color(cell.isFilled ? Color.accentColor : Color.primary.opacity(0.14)))
+                    context.fill(path, with: .color(cell.isFilled ? MapMethodPalette.accent : MapMethodPalette.emptyCell))
                 }
             }
         }

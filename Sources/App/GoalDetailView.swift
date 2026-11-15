@@ -16,6 +16,11 @@ struct GoalDetailView: View {
             }
         }
         .navigationTitle(goal.title)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                CurrencyPickerButton(selection: currencyBinding, compact: true)
+            }
+        }
         .frame(minWidth: 420, minHeight: 560)
     }
 
@@ -30,15 +35,19 @@ struct GoalDetailView: View {
                     onToggleCell: { cell in toggle(cell, in: document) }
                 )
                 .frame(height: 390)
-                .padding(10)
-                .background(Color.primary.opacity(0.025), in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+                .padding(8)
+                .background(MapMethodPalette.quietSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
 
-                HStack(spacing: 10) {
+                HStack(spacing: 12) {
                     Image(systemName: "hand.tap")
                     Text("Нажмите на целую клетку, когда отложите её сумму.")
                 }
                 .font(.callout)
                 .foregroundStyle(.secondary)
+
+                Text("Смена валюты не пересчитывает сумму по обменному курсу.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
 
                 history(document)
                 attribution(document.outline)
@@ -50,10 +59,10 @@ struct GoalDetailView: View {
     }
 
     private func progressHeader(_ document: SavingsGoalDocument) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline) {
                 Text(CurrencyAmount.format(document.savedMinorUnits, currencyCode: document.currencyCode))
-                    .font(.system(size: 34, weight: .semibold, design: .rounded))
+                    .font(.system(size: 32, weight: .medium).monospacedDigit())
                     .contentTransition(.numericText())
                 Spacer()
                 Text("\(Int(document.progress * 100))%")
@@ -61,8 +70,7 @@ struct GoalDetailView: View {
                     .foregroundStyle(.secondary)
             }
             ProgressView(value: document.progress)
-                .tint(Color.accentColor)
-                .scaleEffect(x: 1, y: 1.45, anchor: .center)
+                .tint(MapMethodPalette.accent)
             HStack {
                 Text("из \(CurrencyAmount.format(document.targetMinorUnits, currencyCode: document.currencyCode))")
                 Spacer()
@@ -72,7 +80,7 @@ struct GoalDetailView: View {
             .foregroundStyle(.secondary)
         }
         .padding(.horizontal, 4)
-        .animation(.spring(response: 0.42, dampingFraction: 0.78), value: document.savedMinorUnits)
+        .animation(.easeOut(duration: 0.18), value: document.savedMinorUnits)
     }
 
     private func history(_ document: SavingsGoalDocument) -> some View {
@@ -91,9 +99,9 @@ struct GoalDetailView: View {
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(recent) { event in
-                    HStack(spacing: 10) {
+                    HStack(spacing: 12) {
                         Image(systemName: event.isFilled ? "plus.circle.fill" : "arrow.uturn.backward.circle")
-                            .foregroundStyle(event.isFilled ? Color.accentColor : Color.secondary)
+                            .foregroundStyle(event.isFilled ? MapMethodPalette.accent : Color.secondary)
                         Text(event.isFilled ? "Клетка заполнена" : "Отметка отменена")
                         Spacer()
                         Text(CurrencyAmount.format(event.valueMinorUnits, currencyCode: document.currencyCode))
@@ -106,7 +114,7 @@ struct GoalDetailView: View {
             }
         }
         .padding(16)
-        .background(Color.primary.opacity(0.035), in: RoundedRectangle(cornerRadius: 18))
+        .background(MapMethodPalette.surface, in: RoundedRectangle(cornerRadius: 16))
     }
 
     @ViewBuilder
@@ -126,9 +134,21 @@ struct GoalDetailView: View {
         cells[index].filledAt = isFilling ? now : nil
         var events = document.events
         events.append(ContributionEvent(cellID: cell.id, valueMinorUnits: cell.valueMinorUnits, isFilled: isFilling, happenedAt: now))
-        withAnimation(.spring(response: 0.42, dampingFraction: 0.64)) {
+        withAnimation(.easeOut(duration: 0.18)) {
             goal.update(cells: cells, events: events, at: now)
             try? modelContext.save()
         }
+    }
+
+    private var currencyBinding: Binding<String> {
+        Binding(
+            get: { goal.currencyCode },
+            set: { newCode in
+                guard newCode != goal.currencyCode,
+                      let current = goal.document else { return }
+                goal.update(document: current.changingCurrency(to: newCode))
+                try? modelContext.save()
+            }
+        )
     }
 }
