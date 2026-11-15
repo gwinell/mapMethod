@@ -43,7 +43,7 @@ struct SavingsMapView: View {
                         }
                     } label: {
                         Label("Сбросить масштаб", systemImage: "arrow.up.left.and.arrow.down.right")
-                            .font(.caption.weight(.medium))
+                            .font(.footnote.weight(.medium))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 8)
                             .background(.regularMaterial, in: Capsule())

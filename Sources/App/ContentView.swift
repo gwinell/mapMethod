@@ -7,7 +7,7 @@ struct ContentView: View {
     @Query(sort: \SavingsGoal.updatedAt, order: .reverse) private var goals: [SavingsGoal]
     @State private var showingCreate = false
 
-    private let columns = [GridItem(.adaptive(minimum: 256), spacing: 16)]
+    private let columns = [GridItem(.adaptive(minimum: 288), spacing: 16)]
 
     var body: some View {
         NavigationStack {
@@ -37,8 +37,8 @@ struct ContentView: View {
                     }
                     syncNote
                 }
-                .frame(maxWidth: 1_000, alignment: .leading)
-                .padding(24)
+                .frame(maxWidth: 1_120, alignment: .leading)
+                .padding(28)
                 .frame(maxWidth: .infinity)
             }
             .background(MapMethodPalette.quietSurface)
@@ -58,16 +58,28 @@ struct ContentView: View {
             .onAppear(perform: refreshWidgets)
             .onChange(of: goals.map(\.updatedAt)) { _, _ in refreshWidgets() }
         }
+#if os(macOS)
+        .frame(minWidth: 900, minHeight: 700)
+#endif
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Накопления становятся картой")
-                .font(.system(size: 28, weight: .medium))
-            Text("Выберите место и отмечайте целые клетки по мере пополнения цели.")
-                .font(.callout)
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
+        HStack(alignment: .center, spacing: 20) {
+            Image("MapMethodLogo")
+                .resizable()
+                .interpolation(.high)
+                .scaledToFit()
+                .frame(width: 64, height: 64)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Накопления становятся картой")
+                    .font(.largeTitle.weight(.medium))
+                Text("Выберите место и отмечайте целые клетки по мере пополнения цели.")
+                    .font(.body)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
     }
 
@@ -77,9 +89,9 @@ struct ContentView: View {
                 .font(.system(size: 32, weight: .regular))
                 .foregroundStyle(MapMethodPalette.accent)
             Text("Пока нет карт накоплений")
-                .font(.title3.weight(.medium))
+                .font(.title2.weight(.medium))
             Text("Найдите город или нарисуйте собственный контур.")
-                .font(.subheadline)
+                .font(.body)
                 .foregroundStyle(.secondary)
             Button("Создать карту", systemImage: "plus") { showingCreate = true }
                 .buttonStyle(.borderedProminent)
@@ -91,7 +103,7 @@ struct ContentView: View {
 
     private var syncNote: some View {
         Label("После настройки iCloud карты будут доступны на iPhone и Mac.", systemImage: "icloud")
-            .font(.caption)
+            .font(.footnote)
             .foregroundStyle(.secondary)
             .fixedSize(horizontal: false, vertical: true)
             .padding(.top, 8)
@@ -139,16 +151,16 @@ private struct GoalCard: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(goal.title)
-                        .font(.headline)
+                        .font(.title3.weight(.medium))
                         .lineLimit(1)
                     Text(goal.document?.outline.sourceName ?? "Карта накоплений")
-                        .font(.caption)
+                        .font(.footnote)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                 }
                 Spacer(minLength: 5)
                 Image(systemName: "arrow.up.right")
-                    .font(.caption.weight(.semibold))
+                    .font(.footnote.weight(.medium))
                     .foregroundStyle(.tertiary)
             }
 
@@ -157,28 +169,28 @@ private struct GoalCard: View {
                     OutlinePreview(outline: document.outline)
                     MiniatureCells(document: document)
                 }
-                .frame(height: 136)
+                .frame(height: 160)
                 .frame(maxWidth: .infinity)
                 .clipped()
 
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text(CurrencyAmount.format(document.savedMinorUnits, currencyCode: document.currencyCode))
-                            .font(.subheadline.weight(.medium).monospacedDigit())
+                            .font(.title3.weight(.medium).monospacedDigit())
                             .foregroundStyle(MapMethodPalette.accent)
                         Spacer()
                         Text("\(Int(document.progress * 100))%")
-                            .font(.caption.weight(.medium).monospacedDigit())
+                            .font(.body.weight(.medium).monospacedDigit())
                             .foregroundStyle(.secondary)
                     }
                     ProgressView(value: document.progress).tint(MapMethodPalette.accent)
                     Text("Цель: \(CurrencyAmount.format(document.targetMinorUnits, currencyCode: document.currencyCode))")
-                        .font(.caption)
+                        .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
             }
         }
-        .padding(20)
+        .padding(24)
         .background(MapMethodPalette.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 16).stroke(MapMethodPalette.hairline, lineWidth: 1))
     }

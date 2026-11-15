@@ -12,7 +12,8 @@ MapMethod turns a savings goal into a map made of rounded square cells. Choose a
 - Fill or undo whole cells. The app records each action and its date for future history and the planned savings time-lapse.
 - Create multiple maps, see saved amount and percentage, and view the most recently updated map in an iPhone or Mac widget.
 - Sync goal data through the user's private iCloud CloudKit database.
-- Use light depth, shadows, and spring animation when cells change state.
+- Use a subtle 3D tilt and a short, calm animation when cells change state.
+- Use the generated cell-map mark as the app icon and the main-screen logo.
 
 The time-lapse movie is a post-MVP idea. The MVP records the dated cell events needed to make it later.
 

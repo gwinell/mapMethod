@@ -56,7 +56,7 @@ private struct MapMethodWidgetView: View {
                     .font(.title2)
                     .foregroundStyle(.secondary)
                 Text("Создайте карту в MapMethod")
-                    .font(.caption)
+                    .font(.footnote)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
             }
@@ -69,7 +69,7 @@ private struct MapMethodWidgetView: View {
         switch family {
         case .systemSmall:
             VStack(alignment: .leading, spacing: 8) {
-                Text(goal.title).font(.caption.weight(.semibold)).lineLimit(1)
+                Text(goal.title).font(.subheadline.weight(.medium)).lineLimit(1)
                 WidgetMapArtwork(goal: goal)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 progress(goal)
@@ -100,10 +100,10 @@ private struct MapMethodWidgetView: View {
     private func titleAndAmount(_ goal: WidgetGoalSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(goal.title)
-                .font(.headline)
+                .font(.title3.weight(.medium))
                 .lineLimit(1)
                 Text("\(WidgetCurrencyFormat.format(goal.savedMinorUnits, currencyCode: goal.currencyCode)) из \(WidgetCurrencyFormat.format(goal.targetMinorUnits, currencyCode: goal.currencyCode))")
-                .font(.caption.monospacedDigit())
+                .font(.footnote.monospacedDigit())
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.75)
@@ -118,7 +118,7 @@ private struct MapMethodWidgetView: View {
                 Spacer()
                 Text("\(goal.cells.filter(\.isFilled).count)/\(goal.cells.count) клеток")
             }
-            .font(.caption2.monospacedDigit())
+            .font(.footnote.monospacedDigit())
             .foregroundStyle(.secondary)
         }
     }

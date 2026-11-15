@@ -21,12 +21,14 @@ struct GoalDetailView: View {
                 CurrencyPickerButton(selection: currencyBinding, compact: true)
             }
         }
-        .frame(minWidth: 420, minHeight: 560)
+#if os(macOS)
+        .frame(minWidth: 720, minHeight: 700)
+#endif
     }
 
     private func detail(_ document: SavingsGoalDocument) -> some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: 28) {
                 progressHeader(document)
                 SavingsMapView(
                     outline: document.outline,
@@ -34,7 +36,7 @@ struct GoalDetailView: View {
                     currencyCode: document.currencyCode,
                     onToggleCell: { cell in toggle(cell, in: document) }
                 )
-                .frame(height: 390)
+                .frame(height: 460)
                 .padding(8)
                 .background(MapMethodPalette.quietSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
 
@@ -42,18 +44,18 @@ struct GoalDetailView: View {
                     Image(systemName: "hand.tap")
                     Text("Нажмите на целую клетку, когда отложите её сумму.")
                 }
-                .font(.callout)
+                .font(.body)
                 .foregroundStyle(.secondary)
 
                 Text("Смена валюты не пересчитывает сумму по обменному курсу.")
-                    .font(.caption)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
 
                 history(document)
                 attribution(document.outline)
             }
-            .frame(maxWidth: 900, alignment: .leading)
-            .padding(24)
+            .frame(maxWidth: 1_000, alignment: .leading)
+            .padding(28)
             .frame(maxWidth: .infinity)
         }
     }
@@ -62,11 +64,11 @@ struct GoalDetailView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline) {
                 Text(CurrencyAmount.format(document.savedMinorUnits, currencyCode: document.currencyCode))
-                    .font(.system(size: 32, weight: .medium).monospacedDigit())
+                    .font(.system(size: 38, weight: .medium).monospacedDigit())
                     .contentTransition(.numericText())
                 Spacer()
                 Text("\(Int(document.progress * 100))%")
-                    .font(.title3.weight(.medium).monospacedDigit())
+                    .font(.title2.weight(.medium).monospacedDigit())
                     .foregroundStyle(.secondary)
             }
             ProgressView(value: document.progress)
@@ -76,7 +78,7 @@ struct GoalDetailView: View {
                 Spacer()
                 Text("\(document.cells.filter { $0.filledAt != nil }.count) из \(document.cells.count) клеток")
             }
-            .font(.subheadline)
+            .font(.body)
             .foregroundStyle(.secondary)
         }
         .padding(.horizontal, 4)
@@ -87,15 +89,15 @@ struct GoalDetailView: View {
         let recent = Array(document.events.sorted { $0.happenedAt > $1.happenedAt }.prefix(5))
         return VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("История").font(.headline)
+                Text("История").font(.title3.weight(.medium))
                 Spacer()
                 Text("Для будущего таймлапса")
-                    .font(.caption)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
             }
             if recent.isEmpty {
                 Text("Отмеченные клетки и даты появятся здесь.")
-                    .font(.subheadline)
+                    .font(.body)
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(recent) { event in
@@ -109,7 +111,7 @@ struct GoalDetailView: View {
                         Text(event.happenedAt.formatted(date: .abbreviated, time: .shortened))
                             .foregroundStyle(.secondary)
                     }
-                    .font(.caption)
+                    .font(.footnote)
                 }
             }
         }
@@ -121,7 +123,7 @@ struct GoalDetailView: View {
     private func attribution(_ outline: MapOutline) -> some View {
         if outline.source == "OpenStreetMap" {
             Text("Контуры © OpenStreetMap contributors · ODbL")
-                .font(.caption2)
+                .font(.footnote)
                 .foregroundStyle(.tertiary)
         }
     }

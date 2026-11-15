@@ -41,7 +41,7 @@ struct CurrencyPickerButton: View {
         } label: {
             HStack(spacing: 8) {
                 Text(selection)
-                    .font(.body.weight(.medium).monospacedDigit())
+                    .font(.title3.weight(.medium).monospacedDigit())
                 if !compact {
                     Text(symbol)
                         .foregroundStyle(.secondary)
@@ -50,8 +50,8 @@ struct CurrencyPickerButton: View {
                     .font(.caption2.weight(.medium))
                     .foregroundStyle(.secondary)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
             .background(MapMethodPalette.quietSurface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(MapMethodPalette.hairline, lineWidth: 1))
             .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
@@ -93,9 +93,10 @@ private struct CurrencySelectionSheet: View {
                     HStack(spacing: 12) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(currency.name)
+                                .font(.body)
                                 .foregroundStyle(.primary)
                             Text("\(currency.code) · \(currency.symbol)")
-                                .font(.caption.monospacedDigit())
+                                .font(.footnote.monospacedDigit())
                                 .foregroundStyle(.secondary)
                         }
                         Spacer()
@@ -106,7 +107,7 @@ private struct CurrencySelectionSheet: View {
                         }
                     }
                     .contentShape(Rectangle())
-                    .padding(.vertical, 4)
+                    .padding(.vertical, 8)
                 }
                 .buttonStyle(.plain)
             }

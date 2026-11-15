@@ -61,8 +61,8 @@ struct CreateGoalView: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
-                .frame(maxWidth: 680, alignment: .leading)
-                .padding(24)
+                .frame(maxWidth: 760, alignment: .leading)
+                .padding(28)
                 .frame(maxWidth: .infinity)
             }
             .navigationTitle("Новая карта")
@@ -94,14 +94,17 @@ struct CreateGoalView: View {
                 }
             }
         }
-        .frame(minWidth: 420, minHeight: 620)
+#if os(macOS)
+        .frame(minWidth: 520, minHeight: 700)
+#endif
     }
 
     private var intro: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Карта для вашей цели")
-                .font(.system(size: 28, weight: .medium))
+                .font(.largeTitle.weight(.medium))
             Text("Выберите контур, валюту и сумму. Приложение разложит цель на клетки.")
+                .font(.body)
                 .foregroundStyle(.secondary)
         }
     }
@@ -112,7 +115,7 @@ struct CreateGoalView: View {
                 selectEarth()
             } label: {
                 Label("Вся Земля", systemImage: "globe.europe.africa")
-                    .font(.subheadline.weight(.medium))
+                    .font(.body.weight(.medium))
             }
             .buttonStyle(.bordered)
 
@@ -138,9 +141,9 @@ struct CreateGoalView: View {
                                 Image(systemName: "mappin.and.ellipse")
                                     .foregroundStyle(MapMethodPalette.accent)
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text(result.name).fontWeight(.medium)
+                                        Text(result.name).font(.body.weight(.medium))
                                     if !result.subtitle.isEmpty {
-                                        Text(result.subtitle).font(.caption).foregroundStyle(.secondary)
+                                            Text(result.subtitle).font(.footnote).foregroundStyle(.secondary)
                                     }
                                 }
                                 Spacer()
@@ -159,7 +162,7 @@ struct CreateGoalView: View {
                 .background(MapMethodPalette.surface, in: RoundedRectangle(cornerRadius: 12))
             }
             Text("Поиск мест использует Apple Maps. Контуры предоставлены OpenStreetMap contributors (ODbL).")
-                .font(.caption)
+                .font(.footnote)
                 .foregroundStyle(.secondary)
         }
     }
@@ -169,7 +172,7 @@ struct CreateGoalView: View {
             FreehandOutlineEditor(points: $drawnPoints, canvasAspectRatio: $drawingAspectRatio)
             HStack {
                 Text("Обведите территорию одним движением")
-                    .font(.caption)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
                 Spacer()
                 Button("Очистить", systemImage: "eraser") {
@@ -191,16 +194,16 @@ struct CreateGoalView: View {
     private func selectedOutline(_ value: MapOutline) -> some View {
         HStack(spacing: 16) {
             OutlinePreview(outline: value)
-                .frame(width: 120, height: 90)
+                .frame(width: 140, height: 104)
             VStack(alignment: .leading, spacing: 4) {
                 Text(title.isEmpty ? value.sourceName : title)
-                    .font(.headline)
+                    .font(.title3.weight(.medium))
                 Text(value.source)
-                    .font(.caption)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
                 if mode == .search && isLoadingOutline {
                     Label("Загружаю контур…", systemImage: "arrow.triangle.2.circlepath")
-                        .font(.caption)
+                        .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
             }
@@ -214,7 +217,7 @@ struct CreateGoalView: View {
     private var goalSettings: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Text("Цель накопления").font(.headline)
+                Text("Цель накопления").font(.title3.weight(.medium))
                 Spacer()
                 CurrencyPickerButton(selection: $currencyCode)
             }
@@ -234,7 +237,7 @@ struct CreateGoalView: View {
                 }
             }
             Text("Валюта задаётся отдельно для каждой карты. Основной номинал приложение предложит автоматически.")
-                .font(.caption)
+                .font(.footnote)
                 .foregroundStyle(.secondary)
         }
     }
@@ -248,7 +251,7 @@ struct CreateGoalView: View {
 
     private func amountField(_ label: String, text: Binding<String>) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(label).font(.subheadline).foregroundStyle(.secondary)
+            Text(label).font(.body).foregroundStyle(.secondary)
             TextField("0", text: text)
 #if os(iOS)
                 .keyboardType(.decimalPad)
@@ -272,7 +275,7 @@ struct CreateGoalView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                .font(.subheadline)
+                .font(.body)
                 .padding(12)
                 .background(MapMethodPalette.quietSurface, in: RoundedRectangle(cornerRadius: 12))
             }

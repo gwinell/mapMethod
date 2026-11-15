@@ -33,6 +33,7 @@
 		AFF6DFB1E2AB38F1338A48A8 /* SavingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209A84500756A624AEC98F9 /* SavingsMapView.swift */; };
 		BF56B95991DA970C09FAD27E /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
 		CB4C6B8794AE01BA746C4833 /* MapMethodWidget-macOS.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E4E75714313A3A948FCEFABD /* MapMethodWidget-macOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D2D73B625CF2792547A0D1B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C1BE132C1E670221F465B7C /* Assets.xcassets */; };
 		D447992CD85409F6AF9BAEA3 /* CurrencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */; };
 		E1C18C44E3E8D81BCCD37B33 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */; };
 		E6814CB83C5BA6556F3D73F2 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */; };
@@ -41,6 +42,7 @@
 		ED0E8C4C265EA962815904AF /* MapMethodWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75576AE5B72A018D97F9387 /* MapMethodWidget.swift */; };
 		F1A56EAB88C7611A19455087 /* PolygonGridGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C245E355265ACDE9AA86D2E /* PolygonGridGenerator.swift */; };
 		F37F22CC606927497038874D /* MapMethodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D808233304D0B81C37BAF /* MapMethodApp.swift */; };
+		FC323F15D8DF1ADDBF878969 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C1BE132C1E670221F465B7C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,7 @@
 		22879108F1ACF48E8C1851EA /* MapMethod-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "MapMethod-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMethodStyle.swift; sourceTree = "<group>"; };
 		35A1CE0AFF28D172EBC18C36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3C1BE132C1E670221F465B7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C245E355265ACDE9AA86D2E /* PolygonGridGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonGridGenerator.swift; sourceTree = "<group>"; };
 		67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPicker.swift; sourceTree = "<group>"; };
 		7477F2C5F3E643A77D8D52A2 /* MapMethod-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MapMethod-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +124,7 @@
 		41F51C8E813319AF8D952077 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				3C1BE132C1E670221F465B7C /* Assets.xcassets */,
 				35A1CE0AFF28D172EBC18C36 /* ContentView.swift */,
 				B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */,
 				67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */,
@@ -303,6 +307,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2D73B625CF2792547A0D1B3 /* Assets.xcassets in Resources */,
 				76F0415068209A4E8E16615B /* world-outline.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC323F15D8DF1ADDBF878969 /* Assets.xcassets in Resources */,
 				AB43CB4ECCFF280155151330 /* world-outline.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

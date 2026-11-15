@@ -27,9 +27,9 @@ struct FreehandOutlineEditor: View {
                 }
                 if points.isEmpty {
                     VStack(spacing: 8) {
-                        Image(systemName: "scribble.variable").font(.system(size: 27, weight: .light))
+                        Image(systemName: "scribble.variable").font(.system(size: 32, weight: .regular))
                         Text("Нарисуйте контур одним движением")
-                            .font(.callout)
+                            .font(.body)
                             .foregroundStyle(.secondary)
                     }
                     .allowsHitTesting(false)
@@ -60,7 +60,7 @@ struct FreehandOutlineEditor: View {
                 canvasAspectRatio = Double(size.width / max(size.height, 1))
             }
         }
-        .frame(height: 270)
+        .frame(height: 320)
         .overlay(RoundedRectangle(cornerRadius: 16).stroke(MapMethodPalette.hairline, lineWidth: 1))
     }
 
