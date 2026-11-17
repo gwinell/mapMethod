@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0039DD25FE19E40452B827E2 /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AD1348A8BD17A8A8AE2A41 /* PlaceSearchService.swift */; };
+		07BEB9980D890D1AA08C205C /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */; };
 		0C9C3874613D4935DA808655 /* FreehandOutlineEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83582B8B5332E73CA232FF99 /* FreehandOutlineEditor.swift */; };
 		0D44BD18B75267C38268CE4E /* CurrencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */; };
+		0ECECBE2FE3424019F5DCF7B /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A0679005019DCBB10FA /* GoalDetailView.swift */; };
+		0FD734F6E5601D5E05D6A3E8 /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
 		0FEA8F7B8E2C98C866C14DBD /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */; };
 		13F932A1AC2C77A5F1DE33E1 /* PolygonGridGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C245E355265ACDE9AA86D2E /* PolygonGridGenerator.swift */; };
 		1B982B7FCF34A67ED9C58791 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1CE0AFF28D172EBC18C36 /* ContentView.swift */; };
@@ -18,22 +21,33 @@
 		2E72B0BE60B51AB9B1671183 /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AD1348A8BD17A8A8AE2A41 /* PlaceSearchService.swift */; };
 		38E6A8A635EB61CA1C1989B3 /* SavingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209A84500756A624AEC98F9 /* SavingsMapView.swift */; };
 		39345BDF743D9DC8218F199E /* SavingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D91A970B23E3546E71909E /* SavingsModels.swift */; };
+		44E62C5E4CD7B47D3F8D5C6D /* PolygonGridGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C245E355265ACDE9AA86D2E /* PolygonGridGenerator.swift */; };
 		53B4D1DBBF4D079EF5EBBF0C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1CE0AFF28D172EBC18C36 /* ContentView.swift */; };
 		64CC833CD134B43FC24723F9 /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A0679005019DCBB10FA /* GoalDetailView.swift */; };
 		6B55BAF30BE67535C48A5AF9 /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
+		6E6632787C3EFDB0B1A35ADF /* SavingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D91A970B23E3546E71909E /* SavingsModels.swift */; };
+		7444608EEAE2CDCEE9A3E48B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1CE0AFF28D172EBC18C36 /* ContentView.swift */; };
 		76965B93B126EF0748B99396 /* MapMethodWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75576AE5B72A018D97F9387 /* MapMethodWidget.swift */; };
 		76F0415068209A4E8E16615B /* world-outline.json in Resources */ = {isa = PBXBuildFile; fileRef = 74879C5E240541BA8E6824E9 /* world-outline.json */; };
 		77313033634C08A63321E93C /* SavingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D91A970B23E3546E71909E /* SavingsModels.swift */; };
 		78A2267ECC78F61A7F36A037 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */; };
+		7D9B9235CD1BB65B77A61F0E /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AD1348A8BD17A8A8AE2A41 /* PlaceSearchService.swift */; };
+		81469CF88C5D2030C23B4D1E /* world-outline.json in Resources */ = {isa = PBXBuildFile; fileRef = 74879C5E240541BA8E6824E9 /* world-outline.json */; };
 		8DF067DC4CE9801D445C48AB /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCB37F20454442721CA931 /* WidgetSnapshot.swift */; };
 		90602FB236169869829CEEC8 /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
 		9F350E8675C1FCB4EBE73D19 /* MapMethodWidget-iOS.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C3C2D11484D5F2DF51E0D5A7 /* MapMethodWidget-iOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A9ADDACD4EB9366AB01EC197 /* MapMethodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D808233304D0B81C37BAF /* MapMethodApp.swift */; };
 		AAC396DDCB5B190EC6A5D8A0 /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A0679005019DCBB10FA /* GoalDetailView.swift */; };
 		AB43CB4ECCFF280155151330 /* world-outline.json in Resources */ = {isa = PBXBuildFile; fileRef = 74879C5E240541BA8E6824E9 /* world-outline.json */; };
 		AFF6DFB1E2AB38F1338A48A8 /* SavingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209A84500756A624AEC98F9 /* SavingsMapView.swift */; };
+		B00AB82197A170F15B160864 /* CurrencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */; };
+		B3DF1578C6CFDA45DCFBB894 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C1BE132C1E670221F465B7C /* Assets.xcassets */; };
+		BC9A1F56F388DCB0B9E55C1F /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */; };
 		BF56B95991DA970C09FAD27E /* MapMethodStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6419AAA1F3A3669A84A005 /* MapMethodStyle.swift */; };
 		CB4C6B8794AE01BA746C4833 /* MapMethodWidget-macOS.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E4E75714313A3A948FCEFABD /* MapMethodWidget-macOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D2D73B625CF2792547A0D1B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C1BE132C1E670221F465B7C /* Assets.xcassets */; };
+		D3B69963DFCA86CF84F28B30 /* FreehandOutlineEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83582B8B5332E73CA232FF99 /* FreehandOutlineEditor.swift */; };
+		D3B97528405BDD54B3A83A97 /* SavingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209A84500756A624AEC98F9 /* SavingsMapView.swift */; };
 		D447992CD85409F6AF9BAEA3 /* CurrencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BD038C4DDC18493CA707AB /* CurrencyPicker.swift */; };
 		E1C18C44E3E8D81BCCD37B33 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */; };
 		E6814CB83C5BA6556F3D73F2 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CC05B01553A54DE3DBF47F /* CreateGoalView.swift */; };
@@ -103,6 +117,7 @@
 		BA4D808233304D0B81C37BAF /* MapMethodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMethodApp.swift; sourceTree = "<group>"; };
 		C3C2D11484D5F2DF51E0D5A7 /* MapMethodWidget-iOS.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = "MapMethodWidget-iOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75576AE5B72A018D97F9387 /* MapMethodWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMethodWidget.swift; sourceTree = "<group>"; };
+		CE805313A927A61DAC0C53E5 /* MapMethod-iOS-Local.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "MapMethod-iOS-Local.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E209A84500756A624AEC98F9 /* SavingsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsMapView.swift; sourceTree = "<group>"; };
 		E4E75714313A3A948FCEFABD /* MapMethodWidget-macOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MapMethodWidget-macOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D91A970B23E3546E71909E /* SavingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsModels.swift; sourceTree = "<group>"; };
@@ -170,6 +185,7 @@
 		FDCBFB08BF365420A7CE7D73 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				CE805313A927A61DAC0C53E5 /* MapMethod-iOS-Local.app */,
 				22879108F1ACF48E8C1851EA /* MapMethod-iOS.app */,
 				7477F2C5F3E643A77D8D52A2 /* MapMethod-macOS.app */,
 				C3C2D11484D5F2DF51E0D5A7 /* MapMethodWidget-iOS.appex */,
@@ -238,6 +254,24 @@
 			productReference = C3C2D11484D5F2DF51E0D5A7 /* MapMethodWidget-iOS.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		5EFC31A828847DB83C028ECC /* MapMethod-iOS-Local */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 433FD9F735D5C767B8168481 /* Build configuration list for PBXNativeTarget "MapMethod-iOS-Local" */;
+			buildPhases = (
+				9B2E46C07218C22BA8329360 /* Sources */,
+				7EF5CC2A6409B8D5FA93EDB1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MapMethod-iOS-Local";
+			packageProductDependencies = (
+			);
+			productName = "MapMethod-iOS-Local";
+			productReference = CE805313A927A61DAC0C53E5 /* MapMethod-iOS-Local.app */;
+			productType = "com.apple.product-type.application";
+		};
 		CFCAF0F24A6F82D84F71809A /* MapMethodWidget-macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8125EDE0B4B841FAC4981B53 /* Build configuration list for PBXNativeTarget "MapMethodWidget-macOS" */;
@@ -275,6 +309,10 @@
 					5A1D26438E5DDF5D598614D8 = {
 						DevelopmentTeam = "";
 					};
+					5EFC31A828847DB83C028ECC = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
 					CFCAF0F24A6F82D84F71809A = {
 						DevelopmentTeam = "";
 					};
@@ -295,6 +333,7 @@
 			projectRoot = "";
 			targets = (
 				28362E001A0BC78CDD84130E /* MapMethod-iOS */,
+				5EFC31A828847DB83C028ECC /* MapMethod-iOS-Local */,
 				53C3CD1AAA5B675A64B719C7 /* MapMethod-macOS */,
 				5A1D26438E5DDF5D598614D8 /* MapMethodWidget-iOS */,
 				CFCAF0F24A6F82D84F71809A /* MapMethodWidget-macOS */,
@@ -321,6 +360,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7EF5CC2A6409B8D5FA93EDB1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3DF1578C6CFDA45DCFBB894 /* Assets.xcassets in Resources */,
+				81469CF88C5D2030C23B4D1E /* world-outline.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -341,6 +389,25 @@
 				6B55BAF30BE67535C48A5AF9 /* MapMethodStyle.swift in Sources */,
 				ED0E8C4C265EA962815904AF /* MapMethodWidget.swift in Sources */,
 				78A2267ECC78F61A7F36A037 /* WidgetSnapshot.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B2E46C07218C22BA8329360 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7444608EEAE2CDCEE9A3E48B /* ContentView.swift in Sources */,
+				BC9A1F56F388DCB0B9E55C1F /* CreateGoalView.swift in Sources */,
+				B00AB82197A170F15B160864 /* CurrencyPicker.swift in Sources */,
+				D3B69963DFCA86CF84F28B30 /* FreehandOutlineEditor.swift in Sources */,
+				0ECECBE2FE3424019F5DCF7B /* GoalDetailView.swift in Sources */,
+				A9ADDACD4EB9366AB01EC197 /* MapMethodApp.swift in Sources */,
+				0FD734F6E5601D5E05D6A3E8 /* MapMethodStyle.swift in Sources */,
+				7D9B9235CD1BB65B77A61F0E /* PlaceSearchService.swift in Sources */,
+				44E62C5E4CD7B47D3F8D5C6D /* PolygonGridGenerator.swift in Sources */,
+				D3B97528405BDD54B3A83A97 /* SavingsMapView.swift in Sources */,
+				6E6632787C3EFDB0B1A35ADF /* SavingsModels.swift in Sources */,
+				07BEB9980D890D1AA08C205C /* WidgetSnapshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,6 +689,26 @@
 			};
 			name = Release;
 		};
+		C7C96D3EBBAD852A0F66F67A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/App-iOS-Local-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.gwinell.mapmethod.local;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = LOCAL_INSTALL;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		CB72A71B1394F0011853EC19 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -689,9 +776,38 @@
 			};
 			name = Debug;
 		};
+		D874948B25E375B11CE899D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/App-iOS-Local-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.gwinell.mapmethod.local;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = LOCAL_INSTALL;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		433FD9F735D5C767B8168481 /* Build configuration list for PBXNativeTarget "MapMethod-iOS-Local" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D874948B25E375B11CE899D5 /* Debug */,
+				C7C96D3EBBAD852A0F66F67A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		684AA34C887A1B46B8D68D85 /* Build configuration list for PBXNativeTarget "MapMethodWidget-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

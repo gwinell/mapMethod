@@ -12,6 +12,8 @@ open MapMethod.xcodeproj
 
 Run the `MapMethod-iOS` scheme on an iPhone or iOS Simulator, or `MapMethod-macOS` on a Mac. The app does not need to be listed in the App Store. For a personal iPhone install, connect the phone, select it in Xcode, choose a development team, and run the app directly.
 
+For a free Personal Team install, use the `MapMethod-iOS-Local` scheme. This local variant has no iCloud or App Group entitlements, so it saves goals only on that iPhone and does not include the widget. Personal Team provisioning expires after seven days; run the scheme from Xcode again to reinstall. Use the regular `MapMethod-iOS` scheme with a configured Developer Program team for CloudKit sync and widgets.
+
 ## Enable iCloud sync and widgets
 
 The XcodeGen project declares these identifiers in its entitlements:

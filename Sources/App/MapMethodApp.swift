@@ -32,7 +32,9 @@ enum PersistenceController {
     }
 
     private static var hasCloudKitEntitlement: Bool {
-#if targetEnvironment(simulator)
+#if LOCAL_INSTALL
+        return false
+#elseif targetEnvironment(simulator)
         return false
 #elseif os(iOS)
         return true
