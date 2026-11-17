@@ -3,7 +3,11 @@ import SwiftData
 
 struct GoalDetailView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @Bindable var goal: SavingsGoal
+    @State private var showingDeleteConfirmation = false
+    @State private var showingDeleteError = false
+    @State private var deleteErrorMessage = ""
 
     private var document: SavingsGoalDocument? { goal.document }
 
@@ -20,6 +24,30 @@ struct GoalDetailView: View {
             ToolbarItem(placement: .primaryAction) {
                 CurrencyPickerButton(selection: currencyBinding, compact: true)
             }
+            ToolbarItem(placement: .secondaryAction) {
+                Menu {
+                    Button(role: .destructive) {
+                        showingDeleteConfirmation = true
+                    } label: {
+                        Label("Удалить цель", systemImage: "trash")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
+                .accessibilityLabel("Действия с целью")
+                .help("Действия с целью")
+            }
+        }
+        .confirmationDialog("Удалить цель?", isPresented: $showingDeleteConfirmation, titleVisibility: .visible) {
+            Button("Удалить цель", role: .destructive, action: deleteGoal)
+            Button("Отмена", role: .cancel) {}
+        } message: {
+            Text("Карта и история накоплений будут удалены.")
+        }
+        .alert("Не удалось удалить цель", isPresented: $showingDeleteError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(deleteErrorMessage)
         }
 #if os(macOS)
         .frame(minWidth: 720, minHeight: 700)
@@ -139,6 +167,18 @@ struct GoalDetailView: View {
         withAnimation(.easeOut(duration: 0.18)) {
             goal.update(cells: cells, events: events, at: now)
             try? modelContext.save()
+        }
+    }
+
+    private func deleteGoal() {
+        modelContext.delete(goal)
+        do {
+            try modelContext.save()
+            dismiss()
+        } catch {
+            modelContext.rollback()
+            deleteErrorMessage = error.localizedDescription
+            showingDeleteError = true
         }
     }
 

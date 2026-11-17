@@ -6,6 +6,10 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \SavingsGoal.updatedAt, order: .reverse) private var goals: [SavingsGoal]
     @State private var showingCreate = false
+    @State private var showingDeleteConfirmation = false
+    @State private var showingDeleteError = false
+    @State private var deleteErrorMessage = ""
+    @State private var goalPendingDeletion: SavingsGoal?
 
     private let columns = [GridItem(.adaptive(minimum: 288), spacing: 16)]
 
@@ -19,18 +23,37 @@ struct ContentView: View {
                     } else {
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(goals) { goal in
-                                NavigationLink {
-                                    GoalDetailView(goal: goal)
-                                } label: {
-                                    GoalCard(goal: goal)
-                                }
-                                .buttonStyle(.plain)
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        delete(goal)
+                                ZStack(alignment: .topTrailing) {
+                                    NavigationLink {
+                                        GoalDetailView(goal: goal)
                                     } label: {
-                                        Label("Удалить карту", systemImage: "trash")
+                                        GoalCard(goal: goal)
                                     }
+                                    .buttonStyle(.plain)
+                                    .contextMenu {
+                                        Button(role: .destructive) {
+                                            requestDeletion(of: goal)
+                                        } label: {
+                                            Label("Удалить цель", systemImage: "trash")
+                                        }
+                                    }
+
+                                    Menu {
+                                        Button(role: .destructive) {
+                                            requestDeletion(of: goal)
+                                        } label: {
+                                            Label("Удалить цель", systemImage: "trash")
+                                        }
+                                    } label: {
+                                        Image(systemName: "ellipsis.circle")
+                                            .font(.title3)
+                                            .frame(width: 40, height: 40)
+                                            .contentShape(Rectangle())
+                                    }
+                                    .accessibilityLabel("Действия с целью \(goal.title)")
+                                    .help("Действия с целью")
+                                    .padding(.top, 12)
+                                    .padding(.trailing, 12)
                                 }
                             }
                         }
@@ -55,7 +78,20 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showingCreate) { CreateGoalView() }
-            .onAppear(perform: refreshWidgets)
+            .confirmationDialog("Удалить цель?", isPresented: $showingDeleteConfirmation, titleVisibility: .visible) {
+                Button("Удалить цель", role: .destructive) {
+                    if let goalPendingDeletion { delete(goalPendingDeletion) }
+                }
+                Button("Отмена", role: .cancel) { goalPendingDeletion = nil }
+            } message: {
+                Text("Карта и история накоплений будут удалены.")
+            }
+            .alert("Не удалось удалить цель", isPresented: $showingDeleteError) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(deleteErrorMessage)
+            }
+            .onAppear { refreshWidgets() }
             .onChange(of: goals.map(\.updatedAt)) { _, _ in refreshWidgets() }
         }
 #if os(macOS)
@@ -109,36 +145,52 @@ struct ContentView: View {
             .padding(.top, 8)
     }
 
-    private func refreshWidgets() {
-        let snapshots = goals.compactMap(\.document).map { document in
-            WidgetGoalSnapshot(
-                id: document.id,
-                title: document.title,
-                targetMinorUnits: document.targetMinorUnits,
-                savedMinorUnits: document.savedMinorUnits,
-                currencyCode: document.currencyCode,
-                outline: WidgetMapOutline(
-                    rings: document.outline.rings.map { ring in
-                        WidgetMapRing(points: ring.points.map { WidgetMapPoint(x: $0.x, y: $0.y) }, isHole: ring.isHole)
+    private func refreshWidgets(excludingID: String? = nil) {
+        let snapshots = goals
+            .filter { $0.id != excludingID }
+            .compactMap(\.document)
+            .map { document in
+                WidgetGoalSnapshot(
+                    id: document.id,
+                    title: document.title,
+                    targetMinorUnits: document.targetMinorUnits,
+                    savedMinorUnits: document.savedMinorUnits,
+                    currencyCode: document.currencyCode,
+                    outline: WidgetMapOutline(
+                        rings: document.outline.rings.map { ring in
+                            WidgetMapRing(points: ring.points.map { WidgetMapPoint(x: $0.x, y: $0.y) }, isHole: ring.isHole)
+                        },
+                        width: document.outline.width,
+                        height: document.outline.height,
+                        sourceName: document.outline.sourceName,
+                        source: document.outline.source
+                    ),
+                    cells: document.cells.map {
+                        WidgetCell(id: $0.id, x: $0.x, y: $0.y, side: $0.side, valueMinorUnits: $0.valueMinorUnits, isFilled: $0.filledAt != nil)
                     },
-                    width: document.outline.width,
-                    height: document.outline.height,
-                    sourceName: document.outline.sourceName,
-                    source: document.outline.source
-                ),
-                cells: document.cells.map {
-                    WidgetCell(id: $0.id, x: $0.x, y: $0.y, side: $0.side, valueMinorUnits: $0.valueMinorUnits, isFilled: $0.filledAt != nil)
-                },
-                updatedAt: document.updatedAt
-            )
+                    updatedAt: document.updatedAt
+                )
         }
         WidgetSnapshotStore.save(snapshots)
         WidgetCenter.shared.reloadAllTimelines()
     }
 
+    private func requestDeletion(of goal: SavingsGoal) {
+        goalPendingDeletion = goal
+        showingDeleteConfirmation = true
+    }
+
     private func delete(_ goal: SavingsGoal) {
         modelContext.delete(goal)
-        try? modelContext.save()
+        do {
+            try modelContext.save()
+            refreshWidgets(excludingID: goal.id)
+        } catch {
+            modelContext.rollback()
+            deleteErrorMessage = error.localizedDescription
+            showingDeleteError = true
+        }
+        goalPendingDeletion = nil
     }
 }
 
@@ -158,10 +210,7 @@ private struct GoalCard: View {
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                 }
-                Spacer(minLength: 5)
-                Image(systemName: "arrow.up.right")
-                    .font(.footnote.weight(.medium))
-                    .foregroundStyle(.tertiary)
+                Spacer(minLength: 44)
             }
 
             if let document {

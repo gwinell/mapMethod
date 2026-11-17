@@ -31,6 +31,6 @@ Unsigned local builds and iOS Simulator builds use local SwiftData storage becau
 
 ## Boundary search
 
-Place search is an explicit user action through MapKit; the app does not send keystrokes as autocomplete. After a user selects a result, MapMethod requests a matching administrative relation from `https://overpass-api.de/api/interpreter`, waits between requests, and caches the resulting outline on device. The user can instead draw a custom contour. The global `world-outline.json` asset is bundled locally.
+Place search is an explicit user action through MapKit; the app does not send keystrokes as autocomplete. After a user selects a result, MapMethod requests a simplified OpenStreetMap boundary from Nominatim and falls back to coordinate-scoped Overpass lookups. It matches localized and alternate place names, supports polygon and multipolygon shapes plus relation and closed-way boundaries, and caches the resulting outline on device. The user can instead draw a custom contour. The global `world-outline.json` asset is bundled locally.
 
 Natural Earth source and license details are in [Resources/NATURAL_EARTH.md](../Resources/NATURAL_EARTH.md). OpenStreetMap outlines are attributed in the app and are available under the ODbL; review the [OpenStreetMap copyright page](https://www.openstreetmap.org/copyright) when redistributing the app.
